@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mahshad.userinterface.R
 import com.mahshad.userinterface.data.ToDoList
@@ -24,6 +25,22 @@ class Adaptor(val list: List<ToDoList>) : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = list[position].title
         holder.subject.text = list[position].subject
+        holder.layout.background = when {
+            position % 2 == 0 -> ContextCompat.getDrawable(
+                holder.itemView.context,
+                R.drawable.grad_aqua
+            )
+
+            position % 3 == 0 -> ContextCompat.getDrawable(
+                holder.itemView.context,
+                R.drawable.blue
+            )
+
+            else -> ContextCompat.getDrawable(
+                holder.itemView.context,
+                R.drawable.pink
+            )
+        }
     }
 }
 
@@ -31,5 +48,6 @@ class Adaptor(val list: List<ToDoList>) : RecyclerView.Adapter<ViewHolder>() {
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val title = itemView.findViewById<TextView>(R.id.name)
     val subject = itemView.findViewById<TextView>(R.id.subjectName)
+    val layout = itemView.findViewById<View>(R.id.myLinearLayout)
 }
 
